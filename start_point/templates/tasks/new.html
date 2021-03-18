@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Test line to see it the html and the controller connected, can leave it in if CSS manipulates it properly -->
+<h1>The form goes here</h1>
+
+<!-- Need to note which web address this is linking to and what route method is being used in controller-->
+<form action="/tasks" method="POST">
+    <!-- label for description -->
+    <label for="description">Description:</label>
+    <!-- input for description -->
+    <input type="text" id="description" name="description" placeholder="Description">
+
+    <!-- label for user  -->
+    <label for="user">User:</label>
+    <!-- input for user. User input is special as we need to make sure only existing users can be entered here -->
+    <!-- Use select to make a drop down menu -->
+    <select name="user" id="user">
+        <!-- This will include additional text to ask the user Choose User within the text box -->
+        <option selected="true" disabled="disabled">Choose User</option>
+        <!-- Option element for each user in the application -->
+        <!-- The value is what is sent to the database, the user.first name is what the user will see -->
+        {% for user in all_users %}
+            <option value="{{ user.id }}">{{ user.first_name }}</option>
+        {% endfor %}
+    </select>
+    
+    <!-- <input type="text" id="user" name="user" placeholder="User"> -->
+
+    <!-- label for duration -->
+    <label for="duration">Duration:</label>
+    <!-- input for duration -->
+    <input type="text" id="duration" name="duration" placeholder="Duration">
+
+    <!-- label for completed -->
+    <label for="completed">Completed:</label>
+    <!-- input for completed. NOTE. Not input but select (drop down menu) as it a Boolean value (looks better)-->
+    <select name="completed" id="completed">
+        <!-- This will include additional text to ask the user Task completed? within the text box -->
+        <option selected="true" disabled="disabled">Task Completed?</option>
+        <option value="true">True</option>
+        <option value="false">False</option>
+    </select>
+
+    <!-- input to submit form. Submit forms by their nature only require an input -->
+    <input type="submit" value="Add Task">
+</form>
+
+
+{% endblock %}
